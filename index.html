@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="id" class="bg-blue-950 text-blue-100">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="no-referrer">
     <title>top</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-       <meta name="description" content="file video" />
-  <meta name="robots" content="index, follow" />
-  <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#162036" />
+    <meta name="description" content="file video" />
+    <meta name="robots" content="index, follow" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#162036" />
 
-  <link rel="canonical" href="https://video.twimg.jp/d/0602" />
+    <link rel="canonical" href="https://video.twimg.jp/d/0602" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Gofile" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="Gofile" />
-  <meta property="og:description" content="file video." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gofile" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Gofile" />
+    <meta property="og:description" content="file video." />
 
-  <meta property="og:url" content="gofile" />
+    <meta property="og:url" content="gofile" />
 
-  <meta property="og:image" content="https://gofile.io/assets/img/logo-small-og.png" />
-  <meta property="og:image:width" content="300" />
-  <meta property="og:image:height" content="300" />
-  <meta property="og:image:alt" content="Gofile logo" />
+    <meta property="og:image" content="https://gofile.io/assets/img/logo-small-og.png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:alt" content="Gofile logo" />
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@Gofile_io" />
-  <meta name="twitter:title" content="Gofile" />
-  <meta name="twitter:description" content="file video" />
-  <meta name="twitter:image" content="https://gofile.io/assets/img/logo-small-og.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Gofile_io" />
+    <meta name="twitter:title" content="Gofile" />
+    <meta name="twitter:description" content="file video" />
+    <meta name="twitter:image" content="https://gofile.io/assets/img/logo-small-og.png" />
 
-  <link rel="icon" type="image/png" sizes="16x16" href="https://gofile.io/assets/img/favicon16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://gofile.io/assets/img/favicon32.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="https://gofile.io/assets/img/favicon96.png" />
-
-
-    </style>
+    <link rel="icon" type="image/png" sizes="16x16" href="https://gofile.io/assets/img/favicon16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://gofile.io/assets/img/favicon32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="https://gofile.io/assets/img/favicon96.png" />
 </head>
 <body class="min-h-screen flex flex-col justify-between">
-
-    <div id="wadah-iklan-sticky-atas" class="w-full flex justify-center py-2 bg-gray-900/50 border-b border-gray-800/60 min-h-[95px]"></div>
 
     <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-6">
         
@@ -134,33 +129,6 @@
             return false;
         }
     });
-
-    function pasangIklanStickyAtas() {
-        const stickyContainer = document.getElementById('wadah-iklan-sticky-atas');
-        if (!stickyContainer) return;
-
-        const iframeAd = document.createElement('iframe');
-        iframeAd.src = 'about:blank';
-        iframeAd.height = '50';
-        iframeAd.width = '320';
-        iframeAd.frameBorder = '0';
-        iframeAd.scrolling = 'no';
-        iframeAd.style.setProperty('display', 'block', 'important');
-        iframeAd.style.overflow = 'none';
-        stickyContainer.appendChild(iframeAd);
-
-        const iframeDoc = iframeAd.contentDocument || iframeAd.contentWindow.document;
-        if (!iframeDoc) return;
-        
-        iframeDoc.open();
-        // Memisahkan penulisan script tag agar browser tidak bingung membedakan kode pembungkus HTML
-        var scriptCode = "var atOptions = {'key':'baa0afb18e2e70c00e4c1406e4824e4b','format':'iframe','height':50,'width':320,'params':{}};";
-        iframeDoc.write('<body style="margin:0;padding:0;background:transparent;display:flex;justify-content:center;align-items:center;">');
-        iframeDoc.write('<script type="text/javascript">' + scriptCode + '<\/script>');
-        iframeDoc.write('<script type="text/javascript" src="https://likesteepoblique.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"><\/script>');
-        iframeDoc.write('</body>');
-        iframeDoc.close();
-    }
 
     function suntikIklanKontainer(parentContainer, elementId, adScriptUrl) {
         var adWrapper = document.createElement('div');
@@ -349,7 +317,6 @@
         viewport.style.setProperty('display', 'block', 'important');
     }
 
-    pasangIklanStickyAtas();
     loadGofileFeed();
     </script>
 
@@ -365,9 +332,6 @@
             (document.head || document.body).appendChild(hs);
         })();
     </script>
-      
-  
-   
 
 </body>
 </html>
