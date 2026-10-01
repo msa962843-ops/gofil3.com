@@ -81,39 +81,6 @@
             </div>
         </div>
 
-        <!-- Bar Kontrol & Aksi (Toolbar) -->
-        <div class="w-full bg-[#161f36] border border-[#1e2a47] rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-                <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] border border-transparent hover:border-[#2b3b61] text-[#8c97b2] flex items-center justify-center transition-all" title="Select All">
-                    <i class="fa-regular fa-square"></i>
-                </button>
-                <button type="button" class="px-3 py-1.5 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-medium flex items-center gap-1.5 transition-all shadow-sm">
-                    <i class="fa-solid fa-upload text-xs"></i> Upload
-                </button>
-                <button type="button" class="px-3 py-1.5 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white text-xs font-medium border border-[#2b3b61] flex items-center gap-1.5 transition-all">
-                    <i class="fa-solid fa-folder-plus text-xs"></i> New folder
-                </button>
-            </div>
-
-            <div class="flex items-center gap-1 text-[#8c97b2]">
-                <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] hover:text-white flex items-center justify-center transition-all" title="Search">
-                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                </button>
-                <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] hover:text-white flex items-center justify-center transition-all" title="Filter">
-                    <i class="fa-solid fa-bars-staggered text-xs"></i>
-                </button>
-                <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] hover:text-white flex items-center justify-center transition-all" title="Sort">
-                    <i class="fa-solid fa-arrow-down-up-between text-xs"></i>
-                </button>
-                <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] hover:text-white flex items-center justify-center transition-all" title="View Options">
-                    <i class="fa-solid fa-[#1e2a47] fa-sliders text-xs"></i>
-                </button>
-                <button type="button" onclick="loadGofileFeed()" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] hover:text-white flex items-center justify-center transition-all" title="Refresh">
-                    <i class="fa-solid fa-rotate-right text-xs"></i>
-                </button>
-            </div>
-        </div>
-
         <!-- Slot Iklan Banner 320x50 -->
         <div class="w-full flex justify-center items-center my-1 overflow-hidden">
             <script>
@@ -128,7 +95,7 @@
             <script src="https://likesteepoblique.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
         </div>
 
-        <!-- Container Area File (Dinami Feed / Empty State) -->
+        <!-- Container Area File (Dinamis Feed / Empty State) -->
         <div id="files-feed-container" class="w-full min-h-[320px] bg-[#161f36] border border-[#1e2a47] rounded-xl p-8 flex flex-col justify-center items-center text-center">
             <!-- Tampilan Loading / Status default -->
             <div class="flex flex-col items-center justify-center gap-3">
@@ -137,14 +104,6 @@
                 </div>
                 <h2 class="text-base font-semibold text-white">This folder is empty</h2>
                 <p class="text-xs text-[#8c97b2] max-w-sm">Upload files or create a subfolder to get started.</p>
-                <div class="flex items-center gap-2 mt-3">
-                    <button type="button" class="px-3.5 py-1.5 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-medium flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-upload text-xs"></i> Upload files
-                    </button>
-                    <button type="button" class="px-3.5 py-1.5 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white text-xs font-medium border border-[#2b3b61] flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-folder-plus text-xs"></i> New folder
-                    </button>
-                </div>
             </div>
         </div>
 
@@ -240,14 +199,6 @@
                 </div>
                 <h2 class="text-base font-semibold text-white">This folder is empty</h2>
                 <p class="text-xs text-[#8c97b2] max-w-sm">${message || 'Upload files or create a subfolder to get started.'}</p>
-                <div class="flex items-center gap-2 mt-3">
-                    <button type="button" class="px-3.5 py-1.5 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-medium flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-upload text-xs"></i> Upload files
-                    </button>
-                    <button type="button" class="px-3.5 py-1.5 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white text-xs font-medium border border-[#2b3b61] flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-folder-plus text-xs"></i> New folder
-                    </button>
-                </div>
             </div>
         `;
     }
@@ -322,7 +273,6 @@
                     <div class="flex items-start justify-between w-full gap-3 mb-2">
                         <div class="flex items-start gap-3 flex-1 min-w-0">
                             <div class="flex items-center gap-2 mt-0.5">
-                                <input type="checkbox" class="w-4 h-4 rounded bg-[#0b101b] border-[#2b3b61] text-blue-600 focus:ring-0 cursor-pointer">
                                 <span class="text-[#2563eb] text-lg"><i class="fa-solid fa-file-video"></i></span>
                             </div>
                             <div class="flex-1 min-w-0">
