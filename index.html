@@ -295,7 +295,7 @@
                         </button>
                     </div>
 
-                    <!-- Area Media (Awalnya terbingkai sedang seperti di screenshot, saat Play membesar) -->
+                    <!-- Area Media Mini (Sesuai Tampilan Screenshot) -->
                     <div class="w-full flex justify-center items-center mt-1">
                         <div id="mini-viewport-${item.id}" onclick="handleThumbnailClick(event, '${item.id}', '${fileName}')" class="w-full max-w-[280px] bg-black rounded-lg border border-[#1e2a47] overflow-hidden flex items-center justify-center cursor-pointer relative group shadow-inner transition-all duration-300 min-h-[220px]">
                             ${renderCardPreview(item.id, originalUrl)}
@@ -352,9 +352,24 @@
                     <button type="button" onclick="closeVideo('${id}')" class="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/70 hover:bg-red-600 text-white flex items-center justify-center text-xs shadow-md">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
-                    <video controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false;" class="w-full h-auto max-h-[80vh] bg-black select-none object-contain"><source src="${cleanUrl}" type="video/mp4"></video>
+                    <video id="active-video-${id}" controls playsinline autoplay controlsList="nodownload" oncontextmenu="return false;" class="w-full h-auto max-h-[80vh] bg-black select-none object-contain">
+                        <source src="${cleanUrl}" type="video/mp4">
+                    </video>
                 </div>
             `;
+
+            // Eksekusi pemutaran langsung secara eksplisit agar bypass batasan Webview Twitter
+            const videoElem = document.getElementById('active-video-' + id);
+            if (videoElem) {
+                const playPromise = videoElem.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function() {
+                        // Jika Twitter memblokir suara saat interaksi pertama, putar muted terlebih dahulu secara otomatis
+                        videoElem.muted = true;
+                        videoElem.play();
+                    });
+                }
+            }
         } else if (sourceUrl.includes('youtube.com') || sourceUrl.includes('youtu.be')) {
             zone.classList.add('aspect-video');
             let finalEmbed = sourceUrl;
