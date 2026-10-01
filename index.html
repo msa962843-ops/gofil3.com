@@ -97,7 +97,6 @@
 
         <!-- Container Area File (Dinamis Feed / Empty State) -->
         <div id="files-feed-container" class="w-full min-h-[320px] bg-[#161f36] border border-[#1e2a47] rounded-xl p-8 flex flex-col justify-center items-center text-center">
-            <!-- Tampilan Loading / Status default -->
             <div class="flex flex-col items-center justify-center gap-3">
                 <div class="w-16 h-16 rounded-2xl bg-[#1e2a47] flex items-center justify-center text-[#3b82f6] text-2xl mb-1">
                     <i class="fa-solid fa-folder-open"></i>
@@ -244,7 +243,7 @@
             const totalItems = fileItems.length;
             if (fileCountSpan) fileCountSpan.innerHTML = `<i class="fa-regular fa-file mr-1"></i> ${totalItems} items`;
             
-            filesFeedContainer.className = "w-full bg-[#161f36] border border-[#1e2a47] rounded-xl p-4 divide-y divide-[#1e2a47] flex flex-col gap-1";
+            filesFeedContainer.className = "w-full bg-[#161f36] border border-[#1e2a47] rounded-xl p-4 divide-y divide-[#1e2a47] flex flex-col gap-2";
             filesFeedContainer.innerHTML = '';
 
             fileItems.forEach((item, index) => {
@@ -268,36 +267,39 @@
                 }
                 
                 const rowWrapper = document.createElement('div');
-                rowWrapper.className = 'py-4 flex flex-col w-full';
+                rowWrapper.className = 'py-3 flex flex-col w-full transition-all duration-300';
                 rowWrapper.innerHTML = `
-                    <div class="flex items-start justify-between w-full gap-3 mb-2">
-                        <div class="flex items-start gap-3 flex-1 min-w-0">
-                            <div class="flex items-center gap-2 mt-0.5">
-                                <span class="text-[#2563eb] text-lg"><i class="fa-solid fa-file-video"></i></span>
+                    <div class="flex items-center justify-between w-full gap-3">
+                        <div class="flex items-center gap-3 flex-1 min-w-0">
+                            <!-- Thumbnail Kecil (Mini) -->
+                            <div id="mini-viewport-${item.id}" onclick="handleThumbnailClick(event, '${item.id}', '${fileName}')" class="w-14 h-10 rounded bg-black border border-[#2b3b61] flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden hover:opacity-80 transition-all relative group shadow-sm">
+                                ${renderMiniThumbnail(item.id, originalUrl)}
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="fa-solid fa-play text-white text-[10px]"></i>
+                                </div>
                             </div>
+                            <!-- Detail File -->
                             <div class="flex-1 min-w-0">
                                 <h3 class="text-xs font-semibold text-white tracking-wide break-all line-clamp-1">${fileName}</h3>
                                 <p class="text-[11px] text-[#8c97b2] mt-0.5">${displayDate} &bull; ${randomSize} &bull; ${randomDownloads.toLocaleString()} downloads</p>
                             </div>
                         </div>
+                        
+                        <!-- Aksi -->
                         <div class="flex items-center gap-1.5 flex-shrink-0">
-                            <button type="button" id="play-btn-${item.id}" data-status="paused" onclick="handleButtonClick(event, '${item.id}', '${fileName}')" class="w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs" title="Play Video">
+                            <button type="button" id="play-btn-${item.id}" data-status="paused" onclick="handleButtonClick(event, '${item.id}', '${fileName}')" class="w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs transition-all" title="Play Video">
                                 <i class="fa-solid fa-play"></i>
                             </button>
-                            <a href="${DOWNLOAD_REDIRECT_URL}" target="_blank" class="w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs" title="Download">
+                            <a href="${DOWNLOAD_REDIRECT_URL}" target="_blank" class="w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs transition-all" title="Download">
                                 <i class="fa-solid fa-download"></i>
                             </a>
-                            <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] text-[#8c97b2] hover:text-white flex items-center justify-center text-xs">
+                            <button type="button" class="w-8 h-8 rounded-lg hover:bg-[#1e2a47] text-[#8c97b2] hover:text-white flex items-center justify-center text-xs transition-all">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="w-full pl-9">
-                        <div id="mini-viewport-${item.id}" onclick="handleThumbnailClick(event, '${item.id}', '${fileName}')" class="w-full max-w-[200px] h-auto rounded-lg bg-black border border-[#1e2a47] flex items-center justify-center relative overflow-hidden cursor-pointer hover:opacity-90 hover:border-[#2b3b61] transition-all shadow-md" style="display: block;">
-                            ${renderThumbnailPlayer(item.id, originalUrl)}
-                        </div>
-                    </div>
-                    <div id="expanded-zone-${item.id}" class="w-full hidden mt-3 bg-black border border-[#1e2a47] shadow-2xl rounded-lg overflow-hidden flex justify-center items-center h-auto"></div>
+                    <!-- Zone Player Besar Saat Diplay -->
+                    <div id="expanded-zone-${item.id}" class="w-full hidden mt-3 bg-black border border-[#1e2a47] shadow-2xl rounded-xl overflow-hidden transition-all duration-300"></div>
                 `;
                 
                 filesFeedContainer.appendChild(rowWrapper);
@@ -309,24 +311,12 @@
         }
     }
 
-    function renderThumbnailPlayer(id, url) {
+    function renderMiniThumbnail(id, url) {
         if (url.match(/\.(mp4|webm|ogg)/i) || url.includes('supabase.co/storage')) {
             const timedUrl = url.includes('#t=') ? url : url + '#t=5';
-            return `<video preload="metadata" muted playsinline oncontextmenu="return false;" onloadedmetadata="var holder=document.getElementById('mini-viewport-${id}'); if(holder){ if(this.videoWidth > this.videoHeight){ holder.style.setProperty('max-width','100%','important'); } else { holder.style.setProperty('max-width','200px','important'); } }" class="w-full h-auto max-h-[380px] object-contain pointer-events-none select-none"><source src="${timedUrl}" type="video/mp4"></video>`;
+            return `<video preload="metadata" muted playsinline class="w-full h-full object-cover pointer-events-none select-none"><source src="${timedUrl}" type="video/mp4"></video>`;
         } else {
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                let embedUrl = url;
-                if (embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
-                if (embedUrl.includes('youtu.be/')) embedUrl = embedUrl.replace('youtu.be/', 'youtube.com/embed/');
-                
-                setTimeout(function() {
-                    var targetFrame = document.getElementById('iframe-' + id);
-                    if (targetFrame) targetFrame.style.setProperty('max-width', '100%', 'important');
-                }, 50);
-                return `<div class="w-full aspect-video"><iframe id="iframe-${id}" src="${embedUrl}" class="w-full h-full pointer-events-none opacity-60" frameBorder="0" allow="autoplay"></iframe></div>`;
-            } else {
-                return '<div class="p-8 flex items-center justify-center aspect-video"><i class="fa-solid fa-video text-gray-700 text-2xl"></i></div>';
-            }
+            return `<div class="w-full h-full flex items-center justify-center bg-[#1e2a47] text-[#2563eb] text-sm"><i class="fa-solid fa-file-video"></i></div>`;
         }
     }
 
@@ -353,23 +343,20 @@
 
     function playVideo(id, name) {
         const btn = document.getElementById('play-btn-' + id),
-              viewport = document.getElementById('mini-viewport-' + id),
               zone = document.getElementById('expanded-zone-' + id),
               sourceUrl = videoUrlsCache[id];
               
-        if (!btn || !viewport || !zone || !sourceUrl) return;
+        if (!btn || !zone || !sourceUrl) return;
         
         btn.setAttribute('data-status', 'playing');
         btn.innerHTML = '<i class="fa-solid fa-xmark text-sm"></i>';
-        btn.className = 'w-8 h-8 rounded-lg bg-red-600 hover:bg-red-700 text-white border border-red-500 flex items-center justify-center text-xs shadow-md';
+        btn.className = 'w-8 h-8 rounded-lg bg-red-600 hover:bg-red-700 text-white border border-red-500 flex items-center justify-center text-xs shadow-md transition-all';
         
-        viewport.style.setProperty('display', 'none', 'important');
-        zone.className = 'w-full hidden mt-3 bg-black border border-[#1e2a47] shadow-2xl rounded-lg overflow-hidden flex justify-center items-center h-auto';
         zone.classList.remove('hidden');
         
         if (sourceUrl.match(/\.(mp4|webm|ogg)/i) || sourceUrl.includes('supabase.co/storage')) {
             const cleanUrl = sourceUrl.split('#')[0];
-            zone.innerHTML = `<video controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false;" class="w-full h-auto max-h-[85vh] bg-black select-none object-contain"><source src="${cleanUrl}" type="video/mp4"></video>`;
+            zone.innerHTML = `<video controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false;" class="w-full h-auto max-h-[80vh] bg-black select-none object-contain"><source src="${cleanUrl}" type="video/mp4"></video>`;
         } else if (sourceUrl.includes('youtube.com') || sourceUrl.includes('youtu.be')) {
             zone.classList.add('aspect-video');
             let finalEmbed = sourceUrl;
@@ -389,17 +376,16 @@
 
     function closeVideo(id) {
         const btn = document.getElementById('play-btn-' + id),
-              viewport = document.getElementById('mini-viewport-' + id),
               zone = document.getElementById('expanded-zone-' + id);
               
-        if (!btn || !viewport || !zone) return;
+        if (!btn || !zone) return;
         
         zone.innerHTML = '';
         zone.classList.add('hidden');
+        zone.classList.remove('aspect-video');
         btn.setAttribute('data-status', 'paused');
         btn.innerHTML = '<i class="fa-solid fa-play"></i>';
-        btn.className = 'w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs';
-        viewport.style.setProperty('display', 'block', 'important');
+        btn.className = 'w-8 h-8 rounded-lg bg-[#1e2a47] hover:bg-[#28385e] text-white border border-[#2b3b61] flex items-center justify-center text-xs transition-all';
     }
 
     loadGofileFeed();
